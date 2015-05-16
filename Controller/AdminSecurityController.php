@@ -64,7 +64,7 @@ class AdminSecurityController extends ContainerAware
             return new RedirectResponse($refererUri && $refererUri != $request->getUri() ? $refererUri : $this->container->get('router')->generate('sonata_admin_dashboard'));
         }
 
-        return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/login.html.'.$this->container->getParameter('fos_user.template.engine'), array(
+        return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/login.html.twig', array(
                 'last_username' => $lastUsername,
                 'error'         => $error,
                 'csrf_token'    => $csrfToken,
@@ -83,9 +83,7 @@ class AdminSecurityController extends ContainerAware
      */
     protected function renderLogin(array $data)
     {
-        $template = sprintf('FOSUserBundle:Security:login.html.%s', $this->container->getParameter('fos_user.template.engine'));
-
-        return $this->container->get('templating')->renderResponse($template, $data);
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Security:login.html.twig', $data);
     }
 
     public function checkAction()
